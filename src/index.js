@@ -1,5 +1,5 @@
 const express = require('express');
-const { submitData } = require('/workspaces/aub-project/web-app/src/controllers/googleSheetController.js'); // Corrected path
+const { submitData } = require('./controllers/gSheetController'); // Corrected path
 
 const app = express();
 
