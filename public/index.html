@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flashcard App</title>
+</head>
+<body>
+    <h1>Flashcard App</h1>
+    <form id="flashcardForm">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" placeholder="Enter question" required>
+        <br>
+        <label for="answer">Answer:</label>
+        <input type="text" id="answer" name="answer" placeholder="Enter answer" required>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="responseMessage"></p>
+    <script>
+        document.getElementById('flashcardForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const question = document.getElementById('question').value;
+            const answer = document.getElementById('answer').value;
+            const responseMessage = document.getElementById('responseMessage');
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ question, answer })
+                });
+                const result = await response.json();
+                responseMessage.textContent = result.message;
+            } catch (error) {
+                responseMessage.textContent = 'Error submitting data';
+            }
+        });
+    </script>
+</body>
+</html>
